@@ -1,11 +1,15 @@
 #include <iostream>
 #include <stdlib.h>
+#include <conio.h>
+#include <stdio.h>
 template <class T> void exch(T &, T &);
 template <class T> void compexch(T &, T &, int &);
 template <class T> void selection(T *, int, int, int &, int &);
 template <class T> void insertion(T *, int, int, int &, int &);
 template <class T> void bubble(T *, int, int, int &, int &);
-template <class T> void greit(T *, int, int, int &, int &);
+template <class T> void marge(T *, int, int, int);
+template <class T> void devide(T *, int, int);
+//template <class T> void greit(T *, int, int, int &, int &);
 using namespace std;
 int main(int argc, char *argv[])
 {
@@ -88,8 +92,9 @@ cout << "-----Su insertion-----\n";
     cout << "idealus " << lyg2 << " " << suk2 << " suma =   " << lyg2+suk2 << endl;
     cout << "blogas " << lyg3 << " " << suk3 << " suma =   " << lyg3+suk3 << endl;
 
+//----Darbai su merge
 
-  cout << "-----Su greito rikiavimo algoritmu-----\n";
+  cout << "-----Su suliejimo-----\n";
         //----Atsitiktinai sugeneruoja 1..1000
         for (i = 0; i < N; i++)
         a[i] = 1000*(1.0*rand()/RAND_MAX);
@@ -104,8 +109,9 @@ cout << "-----Su insertion-----\n";
             k++;
         }
         lyg1=lyg2=lyg3=suk1=suk2=suk3=0;
-
-    greit(a, 0, N-1, lyg1, suk1);
+marge(a,0,N/2,N-1);
+devide(a,0,N-1);
+   /* greit(a, 0, N-1, lyg1, suk1);
     greit(b, 0, N-1, lyg2, suk2);
     greit(c, 0, N-1, lyg3, suk3);
 
@@ -113,7 +119,7 @@ cout << "-----Su insertion-----\n";
     cout << "idealus " << lyg2 << " " << suk2 << " suma =   " << lyg2+suk2 << endl;
     cout << "blogas " << lyg3 << " " << suk3 << " suma =   " << lyg3+suk3 << endl;
 
-    cout << endl;
+    cout << endl;*/
 }
 // SukeiÄ?ia elementus vietomis
 template <class T>
@@ -195,7 +201,7 @@ void bubble(T a[], int l, int r, int &lyg, int &suk)
         suk++;
       }
   }
-  // greito rikiavimo algoritmas
+  /*// greito rikiavimo algoritmas
 template <class T>
 void greit(T a[], int kair, int des, int &suk, int &lyg)
 {
@@ -207,4 +213,66 @@ void greit(T a[], int kair, int des, int &suk, int &lyg)
         greit(a, pivotNew + 1, des, suk, lyg);
         lyg++;
     }
+}
+*/
+// Iskaidymas
+template <class T>
+void marge(T a[],int lb,int mid,int ub)
+{
+   int i,j,k,b[1000];
+   i=lb;
+   j=mid+1;
+   k=lb;
+   while(i<=mid && j<=ub)
+   {
+	   if(a[i]<a[j])
+	   {
+		  b[k]=a[i];
+		  i++;
+	   }
+	   else if(a[i]>a[j])
+	   {
+		  b[k]=a[j];
+		  j++;
+	   }
+	   else{
+		  b[k++]=a[i];
+		  b[k]=a[j];
+		  i++;
+		  j++;
+	   }
+	   k++;
+   }
+   while(i<=mid)
+   {
+	   b[k]=a[i];
+	   k++;
+	   i++;
+   }
+   while(j<=ub)
+   {
+	   b[k]=a[j];
+	   j++;
+	   k++;
+   }
+   k=lb;
+   while(k<=ub)
+   {
+	  a[k]=b[k];
+	  k++;
+   }
+   return;
+}
+//Suliejimo algoritmas
+template <class T>
+void devide(T a[],int l,int u)
+{
+   int m=(l+u)/2;
+   if(l<u)
+   {
+	  devide(a,l,m);
+	  devide(a,m+1,u);
+   }
+   marge(a,l,m,u);
+   return;
 }
