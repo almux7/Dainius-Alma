@@ -7,8 +7,8 @@ template <class T> void compexch(T &, T &, int &);
 template <class T> void selection(T *, int, int, int &, int &);
 template <class T> void insertion(T *, int, int, int &, int &);
 template <class T> void bubble(T *, int, int, int &, int &);
-template <class T> void marge(T *, int, int, int);
-template <class T> void devide(T *, int, int);
+template <class T> void marge(T *, int, int, int, int &, int &);
+template <class T> void devide(T *, int, int, int &, int &);
 //template <class T> void greit(T *, int, int, int &, int &);
 using namespace std;
 int main(int argc, char *argv[])
@@ -109,21 +109,21 @@ cout << "-----Su insertion-----\n";
             k++;
         }
         lyg1=lyg2=lyg3=suk1=suk2=suk3=0;
-        for (i=0;i<N;i++)
+        /*for (i=0;i<N;i++)
         cout<<a[i]<<" "<<endl;
 marge(a,0,500,999);
 devide(a,0,N-1);
 for (i=0;i<N;i++)
-cout<<a[i]<<" ";
-   /* greit(a, 0, N-1, lyg1, suk1);
-    greit(b, 0, N-1, lyg2, suk2);
-    greit(c, 0, N-1, lyg3, suk3);
+cout<<a[i]<<" ";*/
+    devide(a, 0, N-1, lyg1, suk1);
+    devide(b, 0, N-1, lyg2, suk2);
+    devide(c, 0, N-1, lyg3, suk3);
 
     cout << "random " << lyg1 << " " << suk1 << " suma =   " << lyg1+suk1 << endl;
     cout << "idealus " << lyg2 << " " << suk2 << " suma =   " << lyg2+suk2 << endl;
     cout << "blogas " << lyg3 << " " << suk3 << " suma =   " << lyg3+suk3 << endl;
 
-    cout << endl;*/
+    cout << endl;
 }
 // SukeiÄ?ia elementus vietomis
 template <class T>
@@ -221,20 +221,20 @@ void greit(T a[], int kair, int des, int &suk, int &lyg)
 */
 // Iskaidymas
 template <class T>
-void marge(T a[],int lb,int mid,int ub)
+void marge(T a[],int lb,int r,int ub,int &lyg,int &suk)
 {
    int i,j,k,b[1000];
    i=lb;
-   j=mid+1;
+   j=r+1;
    k=lb;
-   while(i<=mid && j<=ub)
+   while(i<=r && j<=ub)
    {
 	   if(a[i]<a[j])
 	   {
 		  b[k]=a[i];
 		  i++;
 	   }
-	   else if(a[i]>a[j])
+	   else if(a[i]>a[j],lyg++)
 	   {
 		  b[k]=a[j];
 		  j++;
@@ -245,9 +245,9 @@ void marge(T a[],int lb,int mid,int ub)
 		  i++;
 		  j++;
 	   }
-	   k++;
+	   k++;suk++;
    }
-   while(i<=mid)
+   while(i<=r)
    {
 	   b[k]=a[i];
 	   k++;
@@ -269,14 +269,14 @@ void marge(T a[],int lb,int mid,int ub)
 }
 //Suliejimo algoritmas
 template <class T>
-void devide(T a[],int l,int u)
+void devide(T a[],int l,int u,int &lyg,int &suk)
 {
    int m=(l+u)/2;
    if(l<u)
    {
-	  devide(a,l,m);
-	  devide(a,m+1,u);
+	  devide(a,l,m,lyg,suk);
+	  devide(a,m+1,u,lyg,suk);
    }
-   marge(a,l,m,u);
+   marge(a,l,m,u,lyg,suk);
    return;
 }
