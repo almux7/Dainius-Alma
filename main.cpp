@@ -1,15 +1,13 @@
 #include <iostream>
 #include <stdlib.h>
-#include <conio.h>
-#include <stdio.h>
 template <class T> void exch(T &, T &);
 template <class T> void compexch(T &, T &, int &);
 template <class T> void selection(T *, int, int, int &, int &);
 template <class T> void insertion(T *, int, int, int &, int &);
 template <class T> void bubble(T *, int, int, int &, int &);
-template <class T> void marge(T *, int, int, int, int &, int &);
+template <class T> void greit(T *, int, int, int &, int &);
+template <class T> void merge(T *, int, int, int, int &, int &);
 template <class T> void devide(T *, int, int, int &, int &);
-//template <class T> void greit(T *, int, int, int &, int &);
 using namespace std;
 int main(int argc, char *argv[])
 {
@@ -92,6 +90,32 @@ cout << "-----Su insertion-----\n";
     cout << "idealus " << lyg2 << " " << suk2 << " suma =   " << lyg2+suk2 << endl;
     cout << "blogas " << lyg3 << " " << suk3 << " suma =   " << lyg3+suk3 << endl;
 
+//----Darbai su greitu rikiavimu
+cout << "-----Su greito rikiavimo algoritmu-----\n";
+        //----Atsitiktinai sugeneruoja 1..1000
+        for (i = 0; i < N; i++)
+        a[i] = 1000*(1.0*rand()/RAND_MAX);
+//----Sugeneruoja nuo 1 iki 1000
+        for (i = 0; i < N; i++)
+        b[i] = i;
+//----Sugeneruoja nuo 1000 iki 1
+        k =0;
+        for (i = 999; i >-1 ;i--)
+        {
+            c[k]=i;
+            k++;
+        }
+        lyg1=lyg2=lyg3=suk1=suk2=suk3=0;
+
+    greit(a, 0, N-1, lyg1, suk1);
+    greit(b, 0, N-1, lyg2, suk2);
+    greit(c, 0, N-1, lyg3, suk3);
+
+    cout << "random " << lyg1 << " " << suk1 << " suma = " << lyg1+suk1 << endl;
+    cout << "idealus " << lyg2 << " " << suk2 << " suma = " << lyg2+suk2 << endl;
+    cout << "blogas " << lyg3 << " " << suk3 << " suma = " << lyg3+suk3 << endl;
+
+
 //----Darbai su merge
 
   cout << "-----Su suliejimo-----\n";
@@ -108,13 +132,7 @@ cout << "-----Su insertion-----\n";
             c[k]=i;
             k++;
         }
-        lyg1=lyg2=lyg3=suk1=suk2=suk3=0;
-        /*for (i=0;i<N;i++)
-        cout<<a[i]<<" "<<endl;
-marge(a,0,500,999);
-devide(a,0,N-1);
-for (i=0;i<N;i++)
-cout<<a[i]<<" ";*/
+    lyg1=lyg2=lyg3=suk1=suk2=suk3=0;
     devide(a, 0, N-1, lyg1, suk1);
     devide(b, 0, N-1, lyg2, suk2);
     devide(c, 0, N-1, lyg3, suk3);
@@ -205,7 +223,7 @@ void bubble(T a[], int l, int r, int &lyg, int &suk)
         suk++;
       }
   }
-  /*// greito rikiavimo algoritmas
+  // greito rikiavimo algoritmas
 template <class T>
 void greit(T a[], int kair, int des, int &suk, int &lyg)
 {
@@ -218,10 +236,10 @@ void greit(T a[], int kair, int des, int &suk, int &lyg)
         lyg++;
     }
 }
-*/
+
 // Iskaidymas
 template <class T>
-void marge(T a[],int lb,int r,int ub,int &lyg,int &suk)
+void merge(T a[],int lb,int r,int ub,int &lyg,int &suk)
 {
    int i,j,k,b[1000];
    i=lb;
@@ -277,6 +295,6 @@ void devide(T a[],int l,int u,int &lyg,int &suk)
 	  devide(a,l,m,lyg,suk);
 	  devide(a,m+1,u,lyg,suk);
    }
-   marge(a,l,m,u,lyg,suk);
+   merge(a,l,m,u,lyg,suk);
    return;
 }
