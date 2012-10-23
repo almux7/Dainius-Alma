@@ -109,8 +109,12 @@ cout << "-----Su insertion-----\n";
             k++;
         }
         lyg1=lyg2=lyg3=suk1=suk2=suk3=0;
-marge(a,0,N/2,N-1);
+        for (i=0;i<N;i++)
+        cout<<a[i]<<" "<<endl;
+marge(a,0,500,999);
 devide(a,0,N-1);
+for (i=0;i<N;i++)
+cout<<a[i]<<" ";
    /* greit(a, 0, N-1, lyg1, suk1);
     greit(b, 0, N-1, lyg2, suk2);
     greit(c, 0, N-1, lyg3, suk3);
